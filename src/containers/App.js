@@ -5,22 +5,9 @@ import "../css/App.css";
 import Scroll from "../components/Scroll";
 import ErrorBoundry from "../components/ErrorBoundry";
 import Footer from "../components/Footer";
-
 // Redux
 import { setSearchField } from "../redux/actions";
 import { connect } from "react-redux";
-
-const mapStateToProps = state => {
-	return {
-		searchField: state.searchField // state comes from reducer
-	};
-};
-
-const mapDispatchToProps = dispatch => {
-	return {
-		onSearchChange: event => dispatch(setSearchField(event.target.value))
-	};
-};
 
 class App extends Component {
 	constructor() {
@@ -61,5 +48,17 @@ class App extends Component {
 		);
 	}
 }
+
+const mapDispatchToProps = dispatch => {
+	return {
+		onSearchChange: event => dispatch(setSearchField(event.target.value))
+	};
+};
+
+const mapStateToProps = state => {
+	return {
+		searchField: state.searchField // state comes from reducer
+	};
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
