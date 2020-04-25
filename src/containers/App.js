@@ -8,27 +8,28 @@ import Footer from "../components/Footer";
 // Redux
 import { setSearchField } from "../redux/actions";
 import { connect } from "react-redux";
+import Header from "../components/Header";
 
 class App extends Component {
 	constructor() {
 		super();
 
 		this.state = {
-			robots: []
+			robots: [],
 		};
 	}
 
 	componentDidMount() {
 		fetch("https://jsonplaceholder.typicode.com/users")
-			.then(res => res.json())
-			.then(users => this.setState({ robots: users }));
+			.then((res) => res.json())
+			.then((users) => this.setState({ robots: users }));
 	}
 
 	render() {
 		const { robots } = this.state;
 		const { searchField, onSearchChange } = this.props;
 
-		const filteredRobots = robots.filter(robot => {
+		const filteredRobots = robots.filter((robot) => {
 			return robot.name.toLowerCase().indexOf(searchField.toLowerCase()) !== -1;
 		});
 
@@ -36,7 +37,7 @@ class App extends Component {
 			<h1>Loading...</h1>
 		) : (
 			<div className="tc">
-				<h1 className="f1">RoboFriends</h1>
+				<Header />
 				<SearchBox searchChange={onSearchChange} />
 				<Scroll>
 					<ErrorBoundry>
@@ -49,15 +50,15 @@ class App extends Component {
 	}
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
 	return {
-		onSearchChange: event => dispatch(setSearchField(event.target.value))
+		onSearchChange: (event) => dispatch(setSearchField(event.target.value)),
 	};
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
 	return {
-		searchField: state.searchField // state comes from reducer
+		searchField: state.searchField, // state comes from reducer
 	};
 };
 
